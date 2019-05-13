@@ -1,5 +1,5 @@
 //
-//  RNPAudioVideo.h
+//  RNPVideo.h
 //  ReactNativePermissions
 //
 //  Created by Yonah Forst on 11/07/16.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "RCTConvert+RNPStatus.h"
 
-@interface RNPAudioVideo : NSObject
+@interface RNPVideo : NSObject
 
-+ (NSString *)getStatus:(NSString *)type;
++ (NSString *)getStatus;
 + (void)request:(NSString *)type completionHandler:(void (^)(NSString *))completionHandler;
 
 @end

@@ -1,20 +1,20 @@
 //
-//  RNPCamera.m
+//  RNPVideo.m
 //  ReactNativePermissions
 //
 //  Created by Yonah Forst on 11/07/16.
 //  Copyright © 2016 Yonah Forst. All rights reserved.
 //
 
-#import "RNPAudioVideo.h"
+#import "RNPVideo.h"
 
 #import <AVFoundation/AVFoundation.h>
 
-@implementation RNPAudioVideo
+@implementation RNPVideo
 
-+ (NSString *)getStatus:(NSString *)type
++ (NSString *)getStatus
 {
-    int status = [AVCaptureDevice authorizationStatusForMediaType:[self typeFromString:type]];
+    int status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     switch (status) {
         case AVAuthorizationStatusAuthorized:
             return RNPStatusAuthorized;
@@ -29,20 +29,12 @@
 
 + (void)request:(NSString *)type completionHandler:(void (^)(NSString *))completionHandler
 {
-    [AVCaptureDevice requestAccessForMediaType:[self typeFromString:type]
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
                              completionHandler:^(BOOL granted) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                     completionHandler([RNPAudioVideo getStatus:type]);
+                                     completionHandler([RNPVideo getStatus]);
                                  });
                              }];
-}
-
-+ (NSString *)typeFromString:(NSString *)string {
-    if ([string isEqualToString:@"audio"]) {
-        return AVMediaTypeAudio;
-    } else {
-        return AVMediaTypeVideo;
-    }
 }
 
 @end
